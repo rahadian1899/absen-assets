@@ -130,13 +130,20 @@ function initAbsensiSystem() {
             c = document.getElementById("photo-gallery"),
             m = "";
         e.forEach(e => {
-            let a = e.data();
-            if (!a.nama) return;
-            let i = a.nama.toUpperCase().trim();
-            if (n[i] || (n[i] = {}), n[i][a.tanggal] = {
-                    id: e.id,
-                    status: a.status || "H"
-                }, (i === o || a.email && a.email.toLowerCase().trim() === d) && (u.push(a), a.tanggal == t && s && (r = a.status || "H")), s && a.tanggal == t && ("H" === a.status || !a.status) && (l++, a.foto && "IZIN_ASSET" !== a.foto)) {
+    let a = e.data();
+    if (!a.nama) return;
+    let i = a.nama.toUpperCase().trim();
+    
+    // Simpan status asli dari DB, jangan dipaksa ke "H" dulu di sini
+    if (n[i] || (n[i] = {}), n[i][a.tanggal] = {
+            id: e.id,
+            status: a.status || "H"
+        }, (i === o || a.email && a.email.toLowerCase().trim() === d) && (u.push(a), a.tanggal == t && s)) {
+            // KUNCI PERBAIKAN: Ambil status murni (H/S/I/A)
+            r = a.status; 
+    }
+    
+    if (s && a.tanggal == t && ("H" === a.status || !a.status) && (l++, a.foto && "IZIN_ASSET" !== a.foto)) {
                 let c = a.waktu ? new Date(1e3 * a.waktu.seconds).toLocaleTimeString("id-ID", {
                         hour: "2-digit",
                         minute: "2-digit"
