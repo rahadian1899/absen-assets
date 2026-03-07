@@ -162,8 +162,8 @@ function initAbsensiSystem() {
     let f = `<span>⚠️</span>`,
         $ = "BELUM ABSEN",
         h = "Silakan klik menu Absen.",
-        I = "#dc2626", // Warna teks (Merah)
-        A = "#fef2f2"; // Warna background (Merah Muda)
+        I = "#dc2626",
+        A = "#fef2f2";
 
     if (r && s) {
         if ("H" === r) {
@@ -173,12 +173,11 @@ function initAbsensiSystem() {
         } else if ("I" === r) {
             f = "<span>I</span>", $ = "STATUS: IZIN", h = "Izin Anda tercatat.", I = "#0ea5e9", A = "#f0f9ff";
         } else if ("A" === r) {
-            // Logika baru untuk ALPA
+            // INI PERUBAHANNYA: Menangkap status A dari tabel rekap
             f = "<span>A</span>", $ = "STATUS: ALPA", h = "Tanpa keterangan hadir.", I = "#ef4444", A = "#fff1f2";
         }
     }
 
-    // Menerapkan perubahan ke elemen HTML
     if (p) p.innerHTML = f;
     g.innerText = $;
     g.style.color = I;
@@ -189,29 +188,37 @@ function initAbsensiSystem() {
     }
 }
         let x = document.getElementById("my-history-list");
-        if (x) {
-            x.innerHTML = "";
-            let S = 0,
-                k = s ? t : 31;
-            for (let E = k; E >= 1 && !(S >= 5); E--) {
-                let w = new Date(a, i - 1, E);
-                if (w.getMonth() !== i - 1 || 0 === w.getDay() || 6 === w.getDay()) continue;
-                let _ = u.find(e => e.tanggal == E),
-                    B = _ ? _.status : "-",
-                    T = _ && _.waktu ? new Date(1e3 * _.waktu.seconds).toLocaleTimeString("id-ID", {
-                        hour: "2-digit",
-                        minute: "2-digit"
-                    }) : "--:--",
-                    D = "H" === B ? "#059669" : "S" === B ? "#f59e0b" : "I" === B ? "#0ea5e9" : "A" === B ? "#dc2626" : "#cbd5e1";
-                x.innerHTML += `
-                    <tr style="border-bottom: 1px solid #f1f5f9; background: white;">
-                        <td style="padding: 12px 15px; font-weight: 800;">${E}/${i}</td>
-                        <td style="text-align: center; font-size: 11px;">${T}</td>
-                        <td style="text-align: center;"><span style="background:${D}; color:white; padding:3px 10px; border-radius:4px; font-size:10px;">${B}</span></td>
-                        <td style="text-align: center; font-size: 11px; color:#94a3b8;">${_?"Tercatat":"-"}</td>
-                    </tr>`, S++
-            }
-        }
+if (x) {
+    x.innerHTML = "";
+    let S = 0, k = s ? t : 31;
+    for (let E = k; E >= 1 && !(S >= 5); E--) {
+        let w = new Date(a, i - 1, E);
+        if (w.getMonth() !== i - 1 || 0 === w.getDay() || 6 === w.getDay()) continue;
+
+        // --- BARIS PERUBAHAN DISINI ---
+        // Membuat format: Sabtu, 07 Maret 2026
+        let tanggalLengkap = w.toLocaleDateString('id-ID', {
+            weekday: 'long',
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric'
+        });
+        // ------------------------------
+
+        let _ = u.find(e => e.tanggal == E),
+            B = _ ? _.status : "-",
+            T = _ && _.waktu ? new Date(1e3 * _.waktu.seconds).toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" }) : "--:--",
+            D = "H" === B ? "#059669" : "S" === B ? "#f59e0b" : "I" === B ? "#0ea5e9" : "A" === B ? "#dc2626" : "#cbd5e1";
+
+        x.innerHTML += `
+            <tr style="border-bottom: 1px solid #f1f5f9; background: white;">
+                <td style="padding: 12px 15px; font-weight: 800; font-size: 12px;">${tanggalLengkap}</td>
+                <td style="text-align: center; font-size: 11px;">${T}</td>
+                <td style="text-align: center;"><span style="background:${D}; color:white; padding:3px 10px; border-radius:4px; font-size:10px;">${B}</span></td>
+                <td style="text-align: center; font-size: 11px; color:#94a3b8;">${_ ? "Tercatat" : "-"}</td>
+            </tr>`, S++
+    }
+}
         let M = "";
         daftarGuruMaster.forEach(e => {
             let t = e.toUpperCase().trim(),
