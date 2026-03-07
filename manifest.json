@@ -1,20 +1,23 @@
 {
   "name": "02-HADIR SDN 02 CIBADAK",
   "short_name": "02-HADIR",
-  "start_url": ".",
+  "start_url": "https://www.sdn02cibadak.sch.id/",
   "display": "standalone",
   "background_color": "#008f3e",
   "theme_color": "#008f3e",
+  "description": "Sistem Presensi Digital Terintegrasi SDN 02 Cibadak",
   "icons": [
     {
       "src": "https://i.ibb.co/4ZJhKMtX/sdn2cbd.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "https://i.ibb.co/4ZJhKMtX/sdn2cbd.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
