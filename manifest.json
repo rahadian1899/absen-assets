@@ -1,0 +1,20 @@
+{
+  "name": "02-HADIR SDN 02 CIBADAK",
+  "short_name": "02-HADIR",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#008f3e",
+  "theme_color": "#008f3e",
+  "icons": [
+    {
+      "src": "https://i.ibb.co/4ZJhKMtX/sdn2cbd.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.ibb.co/4ZJhKMtX/sdn2cbd.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
