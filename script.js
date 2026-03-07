@@ -165,26 +165,26 @@ function initAbsensiSystem() {
             p = document.getElementById("p-status-icon"),
             y = document.getElementById("p-time-text"),
             b = document.getElementById("personal-card");
-        if (g) {
+        // BAGIAN 1: LOGIKA KARTU BERANDA (PERSONAL CARD)
+if (g) {
     let f = `<span>⚠️</span>`,
         $ = "BELUM ABSEN",
         h = "Silakan klik menu Absen.",
-        I = "#dc2626",
+        I = "#dc2626", // Merah default
         A = "#fef2f2";
 
-    // ... di dalam loop e.forEach(e => { ...
-if (r && s) {
-    if ("H" === r) {
-        f = `<span>✓</span>`, $ = "ANDA SUDAH HADIR", h = "Selamat bertugas!", I = "#059669", A = "#ecfdf5";
-    } else if ("S" === r) {
-        f = "<span>S</span>", $ = "STATUS: SAKIT", h = "Semoga lekas sembuh!", I = "#f59e0b", A = "#fffbeb";
-    } else if ("I" === r) {
-        f = "<span>I</span>", $ = "STATUS: IZIN", h = "Izin Anda tercatat.", I = "#0ea5e9", A = "#f0f9ff";
-    } else if ("A" === r) {
-        // DETEKSI ALPA DARI DATABASE
-        f = "<span>A</span>", $ = "STATUS: ALPA (ABSEN KOSONG)", h = "Segera hubungi Admin jika ini kekeliruan.", I = "#ef4444", A = "#fff1f2";
+    if (r && s) { // r adalah status dari DB, s adalah boolean bulan ini
+        if ("H" === r) {
+            f = `<span>✓</span>`, $ = "ANDA SUDAH HADIR", h = "Selamat bertugas!", I = "#059669", A = "#ecfdf5";
+        } else if ("S" === r) {
+            f = "<span>S</span>", $ = "STATUS: SAKIT", h = "Semoga lekas sembuh!", I = "#f59e0b", A = "#fffbeb";
+        } else if ("I" === r) {
+            f = "<span>I</span>", $ = "STATUS: IZIN", h = "Izin Anda tercatat.", I = "#0ea5e9", A = "#f0f9ff";
+        } else if ("A" === r) {
+            // Ini akan menangkap data status "A" yang Anda lihat di database
+            f = "<span>A</span>", $ = "STATUS: ALPA (TIDAK HADIR)", h = "Sistem mencatat Anda tidak absen hari ini.", I = "#ef4444", A = "#fff1f2";
+        }
     }
-}
 
     if (p) p.innerHTML = f;
     g.innerText = $;
@@ -195,36 +195,36 @@ if (r && s) {
         b.style.background = A;
     }
 }
-        let x = document.getElementById("my-history-list");
+
+// BAGIAN 2: LOGIKA TABEL RIWAYAT
+let x = document.getElementById("my-history-list");
 if (x) {
     x.innerHTML = "";
-    let S = 0, k = s ? t : 31;
-    for (let E = k; E >= 1 && !(S >= 5); E--) {
+    let S = 0, k = s ? t : 31; // t adalah tanggal hari ini
+    for (let E = k; E >= 1 && S < 5; E--) {
         let w = new Date(a, i - 1, E);
+        // Lewati jika hari libur (Sabtu/Minggu)
         if (w.getMonth() !== i - 1 || 0 === w.getDay() || 6 === w.getDay()) continue;
 
-        // --- BARIS PERUBAHAN DISINI ---
-        // Membuat format: Sabtu, 07 Maret 2026
         let tanggalLengkap = w.toLocaleDateString('id-ID', {
-            weekday: 'long',
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric'
+            weekday: 'long', day: '2-digit', month: 'long', year: 'numeric'
         });
-        // ------------------------------
 
-        let _ = u.find(e => e.tanggal == E),
-            B = _ ? _.status : "-",
-            T = _ && _.waktu ? new Date(1e3 * _.waktu.seconds).toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" }) : "--:--",
-            D = "H" === B ? "#059669" : "S" === B ? "#f59e0b" : "I" === B ? "#0ea5e9" : "A" === B ? "#dc2626" : "#cbd5e1";
+        let _ = u.find(e => e.tanggal == E); // u adalah array data absen user
+        let B = _ ? _.status : "-";
+        let T = _ && _.waktu ? new Date(1e3 * _.waktu.seconds).toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" }) : "--:--";
+        
+        // Warna label (A = Merah Tua)
+        let D = "H" === B ? "#059669" : "S" === B ? "#f59e0b" : "I" === B ? "#0ea5e9" : "A" === B ? "#dc2626" : "#cbd5e1";
 
         x.innerHTML += `
             <tr style="border-bottom: 1px solid #f1f5f9; background: white;">
-                <td style="padding: 12px 15px; font-weight: 800; font-size: 12px;">${tanggalLengkap}</td>
+                <td style="padding: 12px 15px; font-weight: 800; font-size: 11px;">${tanggalLengkap}</td>
                 <td style="text-align: center; font-size: 11px;">${T}</td>
                 <td style="text-align: center;"><span style="background:${D}; color:white; padding:3px 10px; border-radius:4px; font-size:10px;">${B}</span></td>
                 <td style="text-align: center; font-size: 11px; color:#94a3b8;">${_ ? "Tercatat" : "-"}</td>
-            </tr>`, S++
+            </tr>`;
+        S++;
     }
 }
         let M = "";
