@@ -172,18 +172,19 @@ function initAbsensiSystem() {
         I = "#dc2626",
         A = "#fef2f2";
 
-    if (r && s) {
-        if ("H" === r) {
-            f = `<span>✓</span>`, $ = "ANDA SUDAH HADIR", h = "Selamat bertugas!", I = "#059669", A = "#ecfdf5";
-        } else if ("S" === r) {
-            f = "<span>S</span>", $ = "STATUS: SAKIT", h = "Semoga lekas sembuh!", I = "#f59e0b", A = "#fffbeb";
-        } else if ("I" === r) {
-            f = "<span>I</span>", $ = "STATUS: IZIN", h = "Izin Anda tercatat.", I = "#0ea5e9", A = "#f0f9ff";
-        } else if ("A" === r) {
-            // INI PERUBAHANNYA: Menangkap status A dari tabel rekap
-            f = "<span>A</span>", $ = "STATUS: ALPA", h = "Tanpa keterangan hadir.", I = "#ef4444", A = "#fff1f2";
-        }
+    // ... di dalam loop e.forEach(e => { ...
+if (r && s) {
+    if ("H" === r) {
+        f = `<span>✓</span>`, $ = "ANDA SUDAH HADIR", h = "Selamat bertugas!", I = "#059669", A = "#ecfdf5";
+    } else if ("S" === r) {
+        f = "<span>S</span>", $ = "STATUS: SAKIT", h = "Semoga lekas sembuh!", I = "#f59e0b", A = "#fffbeb";
+    } else if ("I" === r) {
+        f = "<span>I</span>", $ = "STATUS: IZIN", h = "Izin Anda tercatat.", I = "#0ea5e9", A = "#f0f9ff";
+    } else if ("A" === r) {
+        // DETEKSI ALPA DARI DATABASE
+        f = "<span>A</span>", $ = "STATUS: ALPA (ABSEN KOSONG)", h = "Segera hubungi Admin jika ini kekeliruan.", I = "#ef4444", A = "#fff1f2";
     }
+}
 
     if (p) p.innerHTML = f;
     g.innerText = $;
