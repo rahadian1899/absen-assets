@@ -159,13 +159,35 @@ function initAbsensiSystem() {
             y = document.getElementById("p-time-text"),
             b = document.getElementById("personal-card");
         if (g) {
-            let f = `<span>⚠️</span>`,
-                $ = "BELUM ABSEN",
-                h = "Silakan klik menu Absen.",
-                I = "#dc2626",
-                A = "#fef2f2";
-            r && s && ("H" === r ? (f = `<span>✓</span>`, $ = "ANDA SUDAH HADIR", h = "Selamat bertugas!", I = "#059669", A = "#ecfdf5") : "S" === r ? (f = "<span>S</span>", $ = "STATUS: SAKIT", h = "Semoga lekas sembuh!", I = "#f59e0b", A = "#fffbeb") : "I" === r && (f = "<span>I</span>", $ = "STATUS: IZIN", h = "Izin Anda tercatat.", I = "#0ea5e9", A = "#f0f9ff")), p && (p.innerHTML = f), g.innerText = $, g.style.color = I, y && (y.innerText = h), b && (b.style.borderLeft = `10px solid ${I}`, b.style.background = A)
+    let f = `<span>⚠️</span>`,
+        $ = "BELUM ABSEN",
+        h = "Silakan klik menu Absen.",
+        I = "#dc2626", // Warna teks (Merah)
+        A = "#fef2f2"; // Warna background (Merah Muda)
+
+    if (r && s) {
+        if ("H" === r) {
+            f = `<span>✓</span>`, $ = "ANDA SUDAH HADIR", h = "Selamat bertugas!", I = "#059669", A = "#ecfdf5";
+        } else if ("S" === r) {
+            f = "<span>S</span>", $ = "STATUS: SAKIT", h = "Semoga lekas sembuh!", I = "#f59e0b", A = "#fffbeb";
+        } else if ("I" === r) {
+            f = "<span>I</span>", $ = "STATUS: IZIN", h = "Izin Anda tercatat.", I = "#0ea5e9", A = "#f0f9ff";
+        } else if ("A" === r) {
+            // Logika baru untuk ALPA
+            f = "<span>A</span>", $ = "STATUS: ALPA", h = "Tanpa keterangan hadir.", I = "#ef4444", A = "#fff1f2";
         }
+    }
+
+    // Menerapkan perubahan ke elemen HTML
+    if (p) p.innerHTML = f;
+    g.innerText = $;
+    g.style.color = I;
+    if (y) y.innerText = h;
+    if (b) {
+        b.style.borderLeft = `10px solid ${I}`;
+        b.style.background = A;
+    }
+}
         let x = document.getElementById("my-history-list");
         if (x) {
             x.innerHTML = "";
