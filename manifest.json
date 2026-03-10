@@ -3,6 +3,7 @@
   "short_name": "02-Hadir",
   "description": "Sistem Presensi Digital Terintegrasi SDN 02 Cibadak",
   "start_url": "https://www.sdn02cibadak.sch.id/p/presensi-online-sekolah.html",
+  "scope": "https://www.sdn02cibadak.sch.id/p/presensi-online-sekolah.html",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#008f3e",
